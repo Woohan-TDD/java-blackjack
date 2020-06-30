@@ -32,4 +32,8 @@ public class Name {
             throw new IllegalArgumentException("이름의 길이가 올바르지 않습니다.\nname: " + name);
         }
     }
+
+    public String getName() {
+        return name;
+    }
 }

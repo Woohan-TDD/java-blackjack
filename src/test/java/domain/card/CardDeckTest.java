@@ -1,5 +1,6 @@
 package domain.card;
 
+import static domain.Fixture.CARDS;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class CardDeckTest {
     @DisplayName("pick: 카드 한 장을 뽑음")
     @Test
     void pick() {
-        RandomCardDeck cardDeck = new RandomCardDeck(Card.values());
+        RandomCardDeck cardDeck = new RandomCardDeck(CARDS);
 
         Assertions.assertThat(cardDeck.pick()).isInstanceOf(Card.class);
     }

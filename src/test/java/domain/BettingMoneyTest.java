@@ -1,8 +1,8 @@
 package domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,7 +13,7 @@ class BettingMoneyTest {
     @ValueSource(ints = {100, 1_000, 5_000, 10_500})
     @ParameterizedTest
     void constructor(final int amount) {
-        Assertions.assertThat(new BettingMoney(amount)).isInstanceOf(BettingMoney.class);
+        assertThat(new BettingMoney(amount)).isInstanceOf(BettingMoney.class);
     }
 
     @DisplayName("생성자: 최소 베팅 금액을 충족하지 못한 경우 예외 발생")
