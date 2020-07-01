@@ -18,4 +18,8 @@ public class Hands {
     public void add(final Card card) {
         cards.add(card);
     }
+
+    public boolean isBust() {
+        return false;
+    }
 }
