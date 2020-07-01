@@ -39,8 +39,8 @@ class GameTest {
     @DisplayName("게임 시작 시 참가자들에게 카드 두 장씩 부여")
     void firstDraw(int index) {
         game.drawFirst(players, dealer);
-        assertThat(dealer.getHands()).hasSize(2);
-        assertThat(players.getPlayers().get(index).getHands()).hasSize(2);
+        assertThat(dealer.getHands().getCards()).hasSize(2);
+        assertThat(players.getPlayers().get(index).getHands().getCards()).hasSize(2);
     }
 
     @ParameterizedTest
@@ -49,7 +49,7 @@ class GameTest {
     void draw(int index) {
         firstDraw(index);
         game.draw(players.getPlayers().get(index));
-        assertThat(players.getPlayers().get(index).getHands()).hasSize(3);
+        assertThat(players.getPlayers().get(index).getHands().getCards()).hasSize(3);
     }
 
 

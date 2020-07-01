@@ -85,4 +85,22 @@ class HandsTest {
         hands.add(new Card(symbol, Type.DIAMOND));
         assertThat(hands.isDealerBust()).isEqualTo(expected);
     }
+
+    @Test
+    @DisplayName("합이 더 큰지 확인")
+    void isBiggerThan() {
+        hands.add(new Card(Symbol.JACK, Type.DIAMOND));
+        Hands newHands = new Hands();
+        newHands.add(new Card(Symbol.EIGHT, Type.DIAMOND));
+        assertThat(newHands.isBiggerThan(hands)).isFalse();
+    }
+
+    @Test
+    @DisplayName("합이 같은지 확인")
+    void isSame() {
+        hands.add(new Card(Symbol.JACK, Type.DIAMOND));
+        Hands newHands = new Hands();
+        newHands.add(new Card(Symbol.JACK, Type.DIAMOND));
+        assertThat(newHands.isSame(hands)).isTrue();
+    }
 }

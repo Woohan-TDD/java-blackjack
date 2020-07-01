@@ -2,6 +2,7 @@ package controller;
 
 import domain.Game;
 import domain.card.Deck;
+import domain.money.EarningMoney;
 import domain.user.*;
 import view.InputView;
 import view.OutputView;
@@ -24,11 +25,8 @@ public class Controller {
 
     public void run() {
         Game game = createGame();
-        game.drawFirst(players, dealer);
-        outputView.printFirstCards(dealer, players.getPlayers());
-        playPlayers(game);
-        playDealer(game);
-        outputView.printResultCards(dealer, players);
+        play(game);
+        calculateResult();
     }
 
     private Game createGame() {
@@ -40,6 +38,13 @@ public class Controller {
         players = PlayerFactory.createPlayers(inputs);
         dealer = new Dealer();
         return new Game(new Deck());
+    }
+
+    private void play(Game game) {
+        game.drawFirst(players, dealer);
+        outputView.printFirstCards(dealer, players.getPlayers());
+        playPlayers(game);
+        playDealer(game);
     }
 
     private void playPlayers(Game game) {
@@ -63,5 +68,11 @@ public class Controller {
             outputView.printDealerHit();
             game.draw(dealer);
         }
+    }
+
+    private void calculateResult() {
+        EarningMoney earningMoney = new EarningMoney();
+        outputView.printResultCards(dealer, players);
+        outputView.printEarningMoney(EarningMoney.calculateMoney(dealer, players));
     }
 }

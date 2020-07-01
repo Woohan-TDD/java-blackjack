@@ -1,9 +1,9 @@
 package domain.user;
 
-import domain.BettingMoney;
 import domain.card.Card;
 import domain.card.Symbol;
 import domain.card.Type;
+import domain.money.BettingMoney;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

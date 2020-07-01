@@ -6,6 +6,7 @@ import domain.user.Player;
 import domain.user.Players;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class OutputView {
@@ -52,5 +53,18 @@ public class OutputView {
             System.out.println(player.getName() + " : " + cards + " - 결과 : " + player.getHands().sum());
         }
         System.out.println();
+    }
+
+    public void printEarningMoney(Map<String, Double> earningMonies) {
+        int dealerEarningMoney = earningMonies.values()
+                .stream()
+                .mapToInt(Double::intValue)
+                .sum() * -1;
+        System.out.println("## 최종 수익");
+        System.out.println("딜러 : " + dealerEarningMoney);
+        for (Map.Entry<String, Double> money : earningMonies.entrySet()) {
+            System.out.println(money.getKey() + " : " + money.getValue().intValue());
+        }
+
     }
 }

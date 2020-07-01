@@ -1,6 +1,6 @@
 package domain.user;
 
-import domain.BettingMoney;
+import domain.money.BettingMoney;
 
 import java.util.Objects;
 
@@ -25,7 +25,7 @@ public class Player extends Participant {
         return name.getName();
     }
 
-    public double getBettingMoney() {
+    public int getBettingMoney() {
         return bettingMoney.getBettingMoney();
     }
 }

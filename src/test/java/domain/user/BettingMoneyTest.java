@@ -1,6 +1,6 @@
 package domain.user;
 
-import domain.BettingMoney;
+import domain.money.BettingMoney;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,9 +19,9 @@ class BettingMoneyTest {
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {0, -1})
+    @ValueSource(ints = {0, -1})
     @DisplayName("유효성 검사")
-    void validate(double input) {
+    void validate(int input) {
         assertThatThrownBy(() -> new BettingMoney(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("배팅금액은 1원 이상이어야 합니다. 입력금액 : " + input);

@@ -1,12 +1,11 @@
 package view;
 
-import domain.YesOrNo;
 import domain.user.Name;
 import domain.user.Player;
 
 import java.util.*;
 
-import static domain.YesOrNo.YES;
+import static view.YesOrNo.YES;
 
 public class InputView {
 

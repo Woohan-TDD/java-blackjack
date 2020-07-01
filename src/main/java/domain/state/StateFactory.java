@@ -14,4 +14,12 @@ public class StateFactory {
         }
         return new Hit(hands);
     }
+
+    public static State bust(State state) {
+        return new Bust(state.hands());
+    }
+
+    public static State stay(State state) {
+        return new Stay(state.hands());
+    }
 }

@@ -18,10 +18,18 @@ public abstract class Participant {
     }
 
     public void stay() {
-        state = state.stay();
+        state = StateFactory.stay(state);
+    }
+
+    public void bust() {
+        state = StateFactory.bust(state);
     }
 
     public abstract boolean canDrawCard();
+
+    public State getState() {
+        return state;
+    }
 
     public Hands getHands() {
         return state.hands();

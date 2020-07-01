@@ -1,6 +1,6 @@
 package domain.user;
 
-import domain.BettingMoney;
+import domain.money.BettingMoney;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -60,4 +60,12 @@ public class Hands {
     public boolean isDealerBust() {
         return sum() >= DEALER_BUST_NUMBER;
     }
+
+    public boolean isBiggerThan(Hands hands) {
+        return sum() > hands.sum();
+    }
+
+    public boolean isSame(Hands hands) {
+        return sum() == hands.sum();
+    }
 }

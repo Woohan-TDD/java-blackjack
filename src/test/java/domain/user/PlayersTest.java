@@ -1,9 +1,9 @@
 package domain.user;
 
-import domain.BettingMoney;
 import domain.card.Card;
 import domain.card.Symbol;
 import domain.card.Type;
+import domain.money.BettingMoney;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -59,7 +59,7 @@ class PlayersTest {
                 Arrays.asList(new Card(Symbol.ACE, Type.CLUB), new Card(Symbol.ACE, Type.DIAMOND),
                         new Card(Symbol.ACE, Type.CLUB), new Card(Symbol.ACE, Type.CLUB)));
         players.firstDraw(cards);
-        assertThat(players.getPlayers().get(index).getHands()).hasSize(2);
+        assertThat(players.getPlayers().get(index).getHands().getCards()).hasSize(2);
     }
 
     @Test
