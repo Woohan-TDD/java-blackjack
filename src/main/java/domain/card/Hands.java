@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static domain.Game.FIRST_DRAW_NUMBER;
+
 public class Hands {
     public static final int TEN = 10;
     public static final int ELEVEN = 11;
+    public static final int BLACKJACK = 21;
+    public static final int DEALER_BUST_NUMBER = 16;
+
     private final List<Card> cards;
 
     public Hands() {
@@ -22,14 +27,14 @@ public class Hands {
     }
 
     public boolean isBust() {
-        return false;
+        return sum() > BLACKJACK;
     }
 
     public int sum() {
         int sum = cards.stream()
                 .mapToInt(Card::getScore)
                 .sum();
-        if (isAceOne(sum)) {
+        if (isAceNotExist() || isAceOne(sum)) {
             return sum;
         }
         return sum + TEN;
@@ -42,5 +47,17 @@ public class Hands {
     private boolean isAceExist() {
         return cards.stream()
                 .anyMatch(Card::isAce);
+    }
+
+    private boolean isAceNotExist() {
+        return !isAceExist();
+    }
+
+    public boolean isBlackjack() {
+        return cards.size() == FIRST_DRAW_NUMBER && sum() == BLACKJACK;
+    }
+
+    public boolean isDealerBust() {
+        return sum() >= DEALER_BUST_NUMBER;
     }
 }

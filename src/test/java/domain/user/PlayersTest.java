@@ -2,7 +2,6 @@ package domain.user;
 
 import domain.BettingMoney;
 import domain.card.Card;
-import domain.card.Deck;
 import domain.card.Symbol;
 import domain.card.Type;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +21,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class PlayersTest {
 
     private Players players;
-    private Deck deck;
 
     @Test
     @DisplayName("정상생성 테스트")
@@ -54,12 +52,14 @@ class PlayersTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1})
-    @DisplayName("모든 플레이어에게 카드 부여")
+    @DisplayName("모든 플레이어에게 첫 카드 부여")
     void drawFirst(int index) {
         create();
-        List<Card> cards = new ArrayList<>(Arrays.asList(new Card(Symbol.ACE, Type.CLUB), new Card(Symbol.ACE, Type.DIAMOND)));
-        players.draw(cards);
-        assertThat(players.getPlayers().get(index).getHands()).hasSize(1);
+        List<Card> cards = new ArrayList<>(
+                Arrays.asList(new Card(Symbol.ACE, Type.CLUB), new Card(Symbol.ACE, Type.DIAMOND),
+                        new Card(Symbol.ACE, Type.CLUB), new Card(Symbol.ACE, Type.CLUB)));
+        players.firstDraw(cards);
+        assertThat(players.getPlayers().get(index).getHands()).hasSize(2);
     }
 
     @Test

@@ -3,6 +3,7 @@ package domain;
 public class BettingMoney {
 
     public static final int MIN_BETTING_MONEY = 1;
+
     private final double bettingMoney;
 
     public BettingMoney(final double bettingMoney) {

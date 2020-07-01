@@ -2,10 +2,7 @@ package controller;
 
 import domain.Game;
 import domain.card.Deck;
-import domain.user.Dealer;
-import domain.user.Name;
-import domain.user.PlayerFactory;
-import domain.user.Players;
+import domain.user.*;
 import view.InputView;
 import view.OutputView;
 
@@ -17,7 +14,8 @@ public class Controller {
 
     private final InputView inputView;
     private final OutputView outputView;
-    private Game game;
+    private Players players;
+    private Dealer dealer;
 
     public Controller(final InputView inputView, final OutputView outputView) {
         this.inputView = inputView;
@@ -25,9 +23,10 @@ public class Controller {
     }
 
     public void run() {
-        game = createGame();
-        game.drawFirst();
-        outputView.printFirstCards(game.getDealer(), game.getPlayers());
+        Game game = createGame();
+        game.drawFirst(players, dealer);
+        outputView.printFirstCards(dealer, players.getPlayers());
+        playPlayers(game);
     }
 
     private Game createGame() {
@@ -36,8 +35,21 @@ public class Controller {
                 .map(Name::new)
                 .collect(Collectors.toList());
         Map<Name, Integer> inputs = inputView.inputBettingMonies(names);
-        Players players = PlayerFactory.createPlayers(inputs);
-        Dealer dealer = new Dealer();
-        return new Game(new Deck(), players, dealer);
+        players = PlayerFactory.createPlayers(inputs);
+        dealer = new Dealer();
+        return new Game(new Deck());
+    }
+
+    private void playPlayers(Game game) {
+        for (Player player : players.getPlayers()) {
+            playPlayer(player, game);
+        }
+    }
+
+    private void playPlayer(Player player, Game game) {
+        while (player.canDrawCard() && inputView.inputWantMoreCard(player)) {
+            game.draw(player);
+            outputView.printCards(player);
+        }
     }
 }

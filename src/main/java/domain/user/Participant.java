@@ -1,24 +1,28 @@
 package domain.user;
 
 import domain.card.Card;
-import domain.card.Hands;
+import domain.state.State;
+import domain.state.StateFactory;
 
 import java.util.Collections;
 import java.util.List;
 
 public abstract class Participant {
 
-    protected final Hands hands;
-
-    public Participant() {
-        this.hands = new Hands();
-    }
+    //    protected final Hands hands;
+    protected State state;
 
     public void draw(final Card card) {
-        hands.add(card);
+        state = state.draw(card);
     }
 
+    public void drawFirst(Card firstCard, Card secondCard) {
+        state = StateFactory.drawFirst(firstCard, secondCard);
+    }
+
+    public abstract boolean canDrawCard();
+
     public List<Card> getHands() {
-        return Collections.unmodifiableList(hands.getCards());
+        return Collections.unmodifiableList(state.hands().getCards());
     }
 }

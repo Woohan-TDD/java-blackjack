@@ -3,6 +3,8 @@ package domain.card;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,5 +47,42 @@ class HandsTest {
         hands.add(new Card(Symbol.ACE, Type.DIAMOND));
         hands.add(new Card(Symbol.TEN, Type.DIAMOND));
         assertThat(hands.sum()).isEqualTo(21);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"TWO,false", "NINE,true"})
+    @DisplayName("Bust인지 확인")
+    void isBust(Symbol symbol, boolean expected) {
+        hands.add(new Card(symbol, Type.DIAMOND));
+        hands.add(new Card(symbol, Type.DIAMOND));
+        hands.add(new Card(symbol, Type.DIAMOND));
+        assertThat(hands.isBust()).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"JACK,ACE,true", "TWO,THREE,false"})
+    @DisplayName("두 장 받았을 때 블랙잭인지 확인")
+    void isBlackJack(Symbol symbol1, Symbol symbol2, boolean expected) {
+        hands.add(new Card(symbol1, Type.DIAMOND));
+        hands.add(new Card(symbol2, Type.DIAMOND));
+        assertThat(hands.isBlackjack()).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName("세장 이상 받았을 때 합은 21이지만 블랙잭이 아님 확인")
+    void isBlackjack() {
+        hands.add(new Card(Symbol.JACK, Type.DIAMOND));
+        hands.add(new Card(Symbol.JACK, Type.DIAMOND));
+        hands.add(new Card(Symbol.ACE, Type.DIAMOND));
+        assertThat(hands.isBlackjack()).isFalse();
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"SIX, true", "FIVE, false"})
+    @DisplayName("딜러 버스트 확인")
+    void isDealerBust(Symbol symbol, boolean expected) {
+        hands.add(new Card(Symbol.JACK, Type.DIAMOND));
+        hands.add(new Card(symbol, Type.DIAMOND));
+        assertThat(hands.isDealerBust()).isEqualTo(expected);
     }
 }

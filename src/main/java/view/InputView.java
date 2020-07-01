@@ -1,8 +1,12 @@
 package view;
 
+import domain.YesOrNo;
 import domain.user.Name;
+import domain.user.Player;
 
 import java.util.*;
+
+import static domain.YesOrNo.YES;
 
 public class InputView {
 
@@ -16,11 +20,16 @@ public class InputView {
     }
 
     public Map<Name, Integer> inputBettingMonies(final List<Name> names) {
-        Map<Name, Integer> bettingMonies = new HashMap<>();
+        Map<Name, Integer> bettingMonies = new LinkedHashMap<>();
         for (Name name : names) {
             System.out.println(name.getName() + " 의 배팅 금액은?");
             bettingMonies.put(name, Integer.parseInt(SCANNER.nextLine()));
         }
         return Collections.unmodifiableMap(bettingMonies);
+    }
+
+    public boolean inputWantMoreCard(Player player) {
+        System.out.println(player.getName() + " 은 한 장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)");
+        return YES.equals(YesOrNo.of(SCANNER.nextLine()));
     }
 }

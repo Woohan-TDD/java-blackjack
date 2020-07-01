@@ -21,6 +21,12 @@ public class Players {
         }
     }
 
+    public void firstDraw(List<Card> drawCards) {
+        for (Player player : players) {
+            player.drawFirst(drawCards.remove(0), drawCards.remove(0));
+        }
+    }
+
     public void draw(List<Card> drawCards) {
         for (Player player : players) {
             player.draw(drawCards.remove(0));

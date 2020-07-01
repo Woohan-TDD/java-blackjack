@@ -3,45 +3,31 @@ package domain;
 import domain.card.Card;
 import domain.card.Deck;
 import domain.user.Dealer;
-import domain.user.Player;
+import domain.user.Participant;
 import domain.user.Players;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Game {
+    public static final int FIRST_DRAW_NUMBER = 2;
 
     private Deck deck;
-    private Players players;
-    private Dealer dealer;
 
-    public Game(Deck deck, Players players, Dealer dealer) {
+    public Game(Deck deck) {
         this.deck = deck;
-        this.players = players;
-        this.dealer = dealer;
     }
 
-    public void drawFirst() {
-        for (int index = 0; index < 2; index++) {
-            drawAll();
-        }
-    }
-
-    public void drawAll() {
+    public void drawFirst(Players players, Dealer dealer) {
         List<Card> drawCards = new ArrayList<>();
-        for (int index = 0; index < players.size(); index++) {
+        for (int index = 0; index < players.size() * FIRST_DRAW_NUMBER; index++) {
             drawCards.add(deck.deal());
         }
-        players.draw(drawCards);
-        dealer.draw(deck.deal());
+        players.firstDraw(drawCards);
+        dealer.drawFirst(deck.deal(), deck.deal());
     }
 
-    public List<Player> getPlayers() {
-        return Collections.unmodifiableList(players.getPlayers());
-    }
-
-    public Dealer getDealer() {
-        return dealer;
+    public void draw(Participant participant) {
+        participant.draw(deck.deal());
     }
 }

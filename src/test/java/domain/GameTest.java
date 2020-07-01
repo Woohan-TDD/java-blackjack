@@ -31,16 +31,25 @@ class GameTest {
         players = PlayerFactory.createPlayers(inputs);
         dealer = new Dealer();
         deck = new Deck();
-        game = new Game(deck, players, dealer);
+        game = new Game(deck);
     }
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2})
     @DisplayName("게임 시작 시 참가자들에게 카드 두 장씩 부여")
     void firstDraw(int index) {
-        game.drawFirst();
-        assertThat(game.getDealer().getHands()).hasSize(2);
-        assertThat(game.getPlayers().get(index).getHands()).hasSize(2);
+        game.drawFirst(players, dealer);
+        assertThat(dealer.getHands()).hasSize(2);
+        assertThat(players.getPlayers().get(index).getHands()).hasSize(2);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, 2})
+    @DisplayName("한 장의 카드 지급")
+    void draw(int index) {
+        firstDraw(index);
+        game.draw(players.getPlayers().get(index));
+        assertThat(players.getPlayers().get(index).getHands()).hasSize(3);
     }
 
 
