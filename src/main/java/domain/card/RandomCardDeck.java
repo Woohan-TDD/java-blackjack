@@ -1,5 +1,6 @@
 package domain.card;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -19,6 +20,15 @@ public class RandomCardDeck implements CardDeck {
     @Override
     public Card pick() {
         return cards.pop();
+    }
+
+    @Override
+    public List<Card> pick(final int amount) {
+        List<Card> pickedCards = new ArrayList<>();
+        for (int count = 0; count < amount; ++count) {
+            pickedCards.add(pick());
+        }
+        return pickedCards;
     }
 
     private void validate(final List<Card> cards) {

@@ -1,19 +1,27 @@
 package domain.card;
 
 import static domain.Fixture.CARDS;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class CardDeckTest {
+public class RandomCardDeckTest {
+    private RandomCardDeck cardDeck;
+
+    @BeforeEach
+    void setUp() {
+        cardDeck = new RandomCardDeck(CARDS);
+    }
+
     @DisplayName("생성자: 카드 덱 생성")
     @Test
     void constructor() {
-        Assertions.assertThat(new RandomCardDeck(Card.values())).isInstanceOf(RandomCardDeck.class);
+        assertThat(new RandomCardDeck(Card.values())).isInstanceOf(RandomCardDeck.class);
 
     }
 
@@ -36,8 +44,12 @@ public class CardDeckTest {
     @DisplayName("pick: 카드 한 장을 뽑음")
     @Test
     void pick() {
-        RandomCardDeck cardDeck = new RandomCardDeck(CARDS);
+        assertThat(cardDeck.pick()).isInstanceOf(Card.class);
+    }
 
-        Assertions.assertThat(cardDeck.pick()).isInstanceOf(Card.class);
+    @DisplayName("pick: 카드를 입력받은 장수만큼 뽑음")
+    @Test
+    void pick_MultipleCards() {
+        assertThat(cardDeck.pick(5)).hasSize(5);
     }
 }
