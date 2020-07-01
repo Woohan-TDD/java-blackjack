@@ -1,5 +1,7 @@
 package view;
 
+import domain.user.Name;
+
 import java.util.*;
 
 public class InputView {
@@ -13,12 +15,12 @@ public class InputView {
                 .split(","));
     }
 
-    public Map<String, Integer> inputBettingMoneys(List<String> names) {
-        Map<String, Integer> bettingMoneys = new HashMap<>();
-        for (String name : names) {
-            System.out.println(name + " 의 배팅 금액은?");
+    public Map<Name, Integer> inputBettingMoneys(final List<Name> names) {
+        Map<Name, Integer> bettingMoneys = new HashMap<>();
+        for (Name name : names) {
+            System.out.println(name.getName() + " 의 배팅 금액은?");
             bettingMoneys.put(name, Integer.parseInt(SCANNER.nextLine()));
         }
-        return bettingMoneys;
+        return Collections.unmodifiableMap(bettingMoneys);
     }
 }
