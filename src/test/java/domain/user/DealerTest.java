@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DealerTest {
 
     @ParameterizedTest
-    @CsvSource(value = {"SIX, false", "FIVE,true"})
+    @CsvSource(value = {"SEVEN, false", "SIX,true"})
     @DisplayName("카드를 더 받을 수 있는지 확인")
     void canReceiveCard(Symbol symbol, boolean expected) {
         Dealer dealer = new Dealer();

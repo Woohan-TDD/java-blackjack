@@ -9,7 +9,6 @@ import java.util.List;
 
 public abstract class Participant {
 
-    //    protected final Hands hands;
     protected State state;
 
     public void draw(final Card card) {
@@ -18,6 +17,10 @@ public abstract class Participant {
 
     public void drawFirst(Card firstCard, Card secondCard) {
         state = StateFactory.drawFirst(firstCard, secondCard);
+    }
+
+    public void stay() {
+        state = state.stay();
     }
 
     public abstract boolean canDrawCard();

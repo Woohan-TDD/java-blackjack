@@ -78,7 +78,7 @@ class HandsTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"SIX, true", "FIVE, false"})
+    @CsvSource(value = {"SEVEN, true", "SIX, false"})
     @DisplayName("딜러 버스트 확인")
     void isDealerBust(Symbol symbol, boolean expected) {
         hands.add(new Card(Symbol.JACK, Type.DIAMOND));

@@ -27,6 +27,7 @@ public class Controller {
         game.drawFirst(players, dealer);
         outputView.printFirstCards(dealer, players.getPlayers());
         playPlayers(game);
+        playDealer(game);
     }
 
     private Game createGame() {
@@ -50,6 +51,16 @@ public class Controller {
         while (player.canDrawCard() && inputView.inputWantMoreCard(player)) {
             game.draw(player);
             outputView.printCards(player);
+        }
+        if (player.canDrawCard()) {
+            player.stay();
+        }
+    }
+
+    private void playDealer(Game game) {
+        if (dealer.canDrawCard()) {
+            outputView.printDealerHit();
+            game.draw(dealer);
         }
     }
 }

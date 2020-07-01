@@ -10,7 +10,7 @@ public class Hands {
     public static final int TEN = 10;
     public static final int ELEVEN = 11;
     public static final int BLACKJACK = 21;
-    public static final int DEALER_BUST_NUMBER = 16;
+    public static final int DEALER_BUST_NUMBER = 17;
 
     private final List<Card> cards;
 
