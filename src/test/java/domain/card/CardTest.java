@@ -11,26 +11,19 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class CardTest {
-    @DisplayName("생성자: 카드 한 장을 생성")
+    @DisplayName("fromFaceAndSuit: 카드 한 장을 생성")
     @Test
-    void constructor() {
-        assertThat(new Card(ACE, CLUB)).isInstanceOf(Card.class);
+    void fromFaceAndSuit() {
+        assertThat(Card.fromFaceAndSuit(ACE, CLUB)).isInstanceOf(Card.class);
     }
 
-    @DisplayName("생성자: Face가 null인 경우 예외 발생")
-    @Test
-    void constructor_FaceIsNull_ExceptionThrown() {
-        assertThatThrownBy(() -> new Card(null, CLUB))
-                .isInstanceOf(NullPointerException.class)
-                .hasMessageContaining("face가 null입니다.");
-    }
-
-    @DisplayName("생성자: Suit가 null인 경우 예외 발생")
-    @Test
-    void constructor_SuitIsNull_ExceptionThrown() {
-        assertThatThrownBy(() -> new Card(ACE, null))
-                .isInstanceOf(NullPointerException.class)
-                .hasMessageContaining("suit가 null입니다.");
+    @DisplayName("fromFaceAndSuit: face 또는 suit가 null인 경우 예외 발생")
+    @CsvSource(value = {", CLUB", "TEN,"})
+    @ParameterizedTest
+    void fromFaceAndSuit_FaceOrSuitIsNull_ExceptionThrown(final Face face, final Suit suit) {
+        assertThatThrownBy(() -> Card.fromFaceAndSuit(face, suit))
+                .isInstanceOf(CardNotFoundException.class)
+                .hasMessageContaining("카드가 존재하지 않습니다");
     }
 
     @DisplayName("values: 전체 카드를 반환")
@@ -43,15 +36,24 @@ public class CardTest {
     @CsvSource(value = {"ACE, true", "TEN, false"})
     @ParameterizedTest
     void isAce(final Face face, final boolean expect) {
-        Card card = new Card(face, CLUB);
+        Card card = Card.fromFaceAndSuit(face, CLUB);
 
         assertThat(card.isAce()).isEqualTo(expect);
+    }
+
+    @DisplayName("isCardOf: 카드의 face와 suit가 일치하는지 확인")
+    @CsvSource(value = {"ACE, CLUB, true", "TEN, CLUB, false", "ACE, DIAMOND, false"})
+    @ParameterizedTest
+    void isAce(final Face face, final Suit suit, final boolean expect) {
+        Card card = Card.fromFaceAndSuit(ACE, CLUB);
+
+        assertThat(card.isCardOf(face, suit)).isEqualTo(expect);
     }
 
     @DisplayName("getFace: face를 반환")
     @Test
     void getFace() {
-        Card card = new Card(ACE, CLUB);
+        Card card = Card.fromFaceAndSuit(ACE, CLUB);
 
         assertThat(card.getFace()).isEqualTo(ACE);
     }
@@ -59,7 +61,7 @@ public class CardTest {
     @DisplayName("getSuit: suit를 반환")
     @Test
     void getSuit() {
-        Card card = new Card(ACE, CLUB);
+        Card card = Card.fromFaceAndSuit(ACE, CLUB);
 
         assertThat(card.getSuit()).isEqualTo(CLUB);
     }
