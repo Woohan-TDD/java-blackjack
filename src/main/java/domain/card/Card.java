@@ -12,6 +12,9 @@ public class Card {
         this.type = type;
     }
 
+    public boolean isAce() {
+        return symbol == Symbol.ACE;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -30,5 +33,9 @@ public class Card {
     @Override
     public String toString() {
         return symbol + " " + type;
+    }
+
+    public int getScore() {
+        return symbol.getScore();
     }
 }
