@@ -9,14 +9,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class NameTest {
-    @DisplayName("생성자: 1~5자 사이의 이름을 입력받아 인스턴스 생성")
+    @DisplayName("constructor: 1~5자 사이의 이름을 입력받아 인스턴스 생성")
     @ValueSource(strings = {"뭐", "hello", "    hello    ", "      다섯글자야", "     hello"})
     @ParameterizedTest
     void constructor(final String name) {
         assertThat(new Name(name)).isInstanceOf(Name.class);
     }
 
-    @DisplayName("생성자: 입력받은 이름이 null이면 예외 발생")
+    @DisplayName("constructor: 입력받은 이름이 null이면 예외 발생")
     @Test
     void constructor_NameIsNull_ExceptionThrown() {
         assertThatThrownBy(() -> new Name(null))
@@ -24,7 +24,7 @@ class NameTest {
                 .hasMessageContaining("이름이 null입니다");
     }
 
-    @DisplayName("생성자: 길이가 올바르지 않은 이름을 입력받아 예외 발생")
+    @DisplayName("constructor: 길이가 올바르지 않은 이름을 입력받아 예외 발생")
     @ValueSource(strings = {"", "   ", "       ", "다섯자넘어유~"})
     @ParameterizedTest
     void constructor_InvalidNameLength_ExceptionThrown(final String name) {
@@ -37,5 +37,14 @@ class NameTest {
     @Test
     void fromComma() {
         assertThat(Name.fromComma("a, hell, hello, 메롱, the, he")).hasSize(6);
+    }
+
+    @DisplayName("getName: 이름을 반환")
+    @ValueSource(strings = {"    hell", "hell    ", "    hell    "})
+    @ParameterizedTest
+    void getName(final String nameWithSpace) {
+        Name name = new Name(nameWithSpace);
+
+        assertThat(name.getName()).isEqualTo("hell");
     }
 }

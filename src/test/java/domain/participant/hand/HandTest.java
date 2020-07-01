@@ -21,7 +21,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import domain.card.Card;
 
-public class HandTest {
+class HandTest {
     private static Stream<Arguments> createCardsAndScore() {
         return Stream.of(
                 Arguments.of(BUSTED_CARDS, 22),
@@ -51,7 +51,7 @@ public class HandTest {
         );
     }
 
-    @DisplayName("생성자: Hand 인스턴스 생성")
+    @DisplayName("constructor: Hand 인스턴스 생성")
     @Test
     void constructor() {
         assertThat(new Hand()).isInstanceOf(Hand.class);

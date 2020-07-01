@@ -29,7 +29,8 @@ public class Name {
     private void validateLength(final String name) {
         int length = name.length();
         if (length < MIN_LENGTH || length > MAX_LENGTH) {
-            throw new IllegalArgumentException("이름의 길이가 올바르지 않습니다.\nname: " + name);
+            throw new IllegalArgumentException("이름의 길이가 올바르지 않습니다.\n"
+                    + "name: " + name);
         }
     }
 

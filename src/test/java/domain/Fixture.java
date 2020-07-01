@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import domain.card.Card;
+import domain.participant.hand.Hand;
 
 public class Fixture {
     public static final List<Card> CARDS = Card.values();
@@ -42,4 +43,12 @@ public class Fixture {
     public static final List<Card> MAX_SCORE_CARDS = Arrays.asList(TEN_SCORE, TEN_SCORE, ACE_SCORE);
     public static final List<Card> DEALER_HITTABLE_UPPER_BOUND_CARDS = Arrays.asList(TEN_SCORE, SIX_SCORE);
     public static final List<Card> DEALER_NOT_HITTABLE_LOWER_BOUND_CARDS = Arrays.asList(TEN_SCORE, SEVEN_SCORE);
+
+    public static Hand createHand(List<Card> cards) {
+        Hand hand = new Hand();
+        for (final Card card : cards) {
+            hand.draw(card);
+        }
+        return hand;
+    }
 }

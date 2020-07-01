@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class CardTest {
+class CardTest {
     @DisplayName("fromFaceAndSuit: 카드 한 장을 생성")
     @Test
     void fromFaceAndSuit() {
