@@ -1,11 +1,18 @@
 package domain.user;
 
+import domain.BettingMoney;
+import domain.card.Card;
+import domain.card.Deck;
+import domain.card.Symbol;
+import domain.card.Type;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,13 +21,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PlayersTest {
 
+    private Players players;
+    private Deck deck;
+
     @Test
     @DisplayName("정상생성 테스트")
     void create() {
         List<Player> playerList = Arrays.asList(
                 new Player(new Name("Dasom"), new BettingMoney(1000)),
                 new Player(new Name("yerin"), new BettingMoney(1)));
-        Players players = new Players(playerList);
+        players = new Players(playerList);
         assertThat(players).isNotNull();
     }
 
@@ -40,6 +50,23 @@ class PlayersTest {
         assertThatThrownBy(() -> new Players(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("플레이어는 1명 이상이어야 합니다. 입력값 : empty");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1})
+    @DisplayName("모든 플레이어에게 카드 부여")
+    void drawFirst(int index) {
+        create();
+        List<Card> cards = new ArrayList<>(Arrays.asList(new Card(Symbol.ACE, Type.CLUB), new Card(Symbol.ACE, Type.DIAMOND)));
+        players.draw(cards);
+        assertThat(players.getPlayers().get(index).getHands()).hasSize(1);
+    }
+
+    @Test
+    @DisplayName("플레이어의 수 구하기")
+    void size() {
+        create();
+        assertThat(players.size()).isEqualTo(2);
     }
 
 }

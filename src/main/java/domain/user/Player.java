@@ -1,5 +1,7 @@
 package domain.user;
 
+import domain.BettingMoney;
+
 import java.util.Objects;
 
 public class Player extends Participant {
@@ -13,7 +15,11 @@ public class Player extends Participant {
         this.bettingMoney = bettingMoney;
     }
 
+    public String getName() {
+        return name.getName();
+    }
 
-    // TODO 추가 기능 구현
-
+    public double getBettingMoney() {
+        return bettingMoney.getBettingMoney();
+    }
 }

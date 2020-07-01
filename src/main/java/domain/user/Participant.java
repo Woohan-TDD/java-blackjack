@@ -1,15 +1,24 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Hands;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class Participant {
 
-    protected final List<Card> cards = new ArrayList<>();
+    protected final Hands hands;
 
-    public void addCard(final Card card) {
-        cards.add(card);
+    public Participant() {
+        this.hands = new Hands();
+    }
+
+    public void draw(final Card card) {
+        hands.add(card);
+    }
+
+    public List<Card> getHands() {
+        return Collections.unmodifiableList(hands.getCards());
     }
 }

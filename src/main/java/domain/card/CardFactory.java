@@ -1,7 +1,6 @@
 package domain.card;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CardFactory {
@@ -12,7 +11,7 @@ public class CardFactory {
         for (Symbol symbol : symbols) {
             createByType(cards, symbol);
         }
-        return Collections.unmodifiableList(cards);
+        return cards;
     }
 
     private static void createByType(final List<Card> cards, final Symbol symbol) {

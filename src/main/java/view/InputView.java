@@ -15,12 +15,12 @@ public class InputView {
                 .split(","));
     }
 
-    public Map<Name, Integer> inputBettingMoneys(final List<Name> names) {
-        Map<Name, Integer> bettingMoneys = new HashMap<>();
+    public Map<Name, Integer> inputBettingMonies(final List<Name> names) {
+        Map<Name, Integer> bettingMonies = new HashMap<>();
         for (Name name : names) {
             System.out.println(name.getName() + " 의 배팅 금액은?");
-            bettingMoneys.put(name, Integer.parseInt(SCANNER.nextLine()));
+            bettingMonies.put(name, Integer.parseInt(SCANNER.nextLine()));
         }
-        return Collections.unmodifiableMap(bettingMoneys);
+        return Collections.unmodifiableMap(bettingMonies);
     }
 }

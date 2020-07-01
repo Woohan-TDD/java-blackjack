@@ -1,4 +1,4 @@
-package domain.user;
+package domain;
 
 public class BettingMoney {
 
@@ -14,5 +14,9 @@ public class BettingMoney {
         if (bettingMoney < MIN_BETTING_MONEY) {
             throw new IllegalArgumentException("배팅금액은 1원 이상이어야 합니다. 입력금액 : " + bettingMoney);
         }
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
     }
 }

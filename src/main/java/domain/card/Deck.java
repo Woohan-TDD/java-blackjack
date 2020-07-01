@@ -10,4 +10,8 @@ public class Deck {
         cards = CardFactory.create();
         Collections.shuffle(cards);
     }
+
+    public Card deal() {
+        return cards.remove(0);
+    }
 }

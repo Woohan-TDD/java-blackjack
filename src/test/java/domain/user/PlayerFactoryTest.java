@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PlayerFactoryTest {
 
+
     @Test
     @DisplayName("String name 입력받고, Players 정상 생성 확인")
     void create() {
