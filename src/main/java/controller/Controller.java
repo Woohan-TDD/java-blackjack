@@ -28,6 +28,7 @@ public class Controller {
         outputView.printFirstCards(dealer, players.getPlayers());
         playPlayers(game);
         playDealer(game);
+        outputView.printResultCards(dealer, players);
     }
 
     private Game createGame() {

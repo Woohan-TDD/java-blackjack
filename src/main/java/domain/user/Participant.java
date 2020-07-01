@@ -1,11 +1,9 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Hands;
 import domain.state.State;
 import domain.state.StateFactory;
-
-import java.util.Collections;
-import java.util.List;
 
 public abstract class Participant {
 
@@ -25,7 +23,7 @@ public abstract class Participant {
 
     public abstract boolean canDrawCard();
 
-    public List<Card> getHands() {
-        return Collections.unmodifiableList(state.hands().getCards());
+    public Hands getHands() {
+        return state.hands();
     }
 }
