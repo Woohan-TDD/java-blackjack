@@ -19,5 +19,13 @@ public abstract class FinishedState extends StartedState {
         return true;
     }
 
+    public boolean isBlackjack() {
+        return false;
+    }
+
+    public boolean isBusted() {
+        return false;
+    }
+
     protected abstract BigDecimal getProfitRate();
 }

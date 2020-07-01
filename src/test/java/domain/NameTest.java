@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class NameTest {
     @DisplayName("constructor: 1~5자 사이의 이름을 입력받아 인스턴스 생성")
-    @ValueSource(strings = {"뭐", "hello", "    hello    ", "      다섯글자야", "     hello"})
+    @ValueSource(strings = {"뭐", "hello", "    hello    ", "      오더하기오는십이예요", "     hello"})
     @ParameterizedTest
     void constructor(final String name) {
         assertThat(new Name(name)).isInstanceOf(Name.class);
@@ -25,7 +25,7 @@ class NameTest {
     }
 
     @DisplayName("constructor: 길이가 올바르지 않은 이름을 입력받아 예외 발생")
-    @ValueSource(strings = {"", "   ", "       ", "다섯자넘어유~"})
+    @ValueSource(strings = {"", "   ", "       ", "열한자는허락할수없어요"})
     @ParameterizedTest
     void constructor_InvalidNameLength_ExceptionThrown(final String name) {
         assertThatThrownBy(() -> new Name(name))

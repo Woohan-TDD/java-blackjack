@@ -10,6 +10,11 @@ public class BlackjackState extends FinishedState {
     }
 
     @Override
+    public boolean isBlackjack() {
+        return true;
+    }
+
+    @Override
     protected BigDecimal getProfitRate() {
         return PROFIT_RATE;
     }

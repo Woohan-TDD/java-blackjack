@@ -1,11 +1,11 @@
 package domain.participant;
 
+import static domain.Fixture.EASTJUN;
 import static domain.Fixture.HITTABLE_HAND_STATE;
 import static domain.Fixture.HUNDRED_BETTING_MONEY;
-import static domain.Fixture.JUN;
-import static domain.Fixture.POBI;
 import static domain.Fixture.TEN_SCORE;
 import static domain.Fixture.TWO_SCORE;
+import static domain.Fixture.WESTJUN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -25,13 +25,13 @@ class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        player = new Player(JUN, HITTABLE_HAND_STATE, HUNDRED_BETTING_MONEY);
+        player = new Player(EASTJUN, HITTABLE_HAND_STATE, HUNDRED_BETTING_MONEY);
     }
 
     @DisplayName("constructor: 사용자 생성")
     @Test
     void constructor() {
-        assertThat(new Player(JUN, HITTABLE_HAND_STATE, HUNDRED_BETTING_MONEY)).isInstanceOf(Player.class);
+        assertThat(new Player(EASTJUN, HITTABLE_HAND_STATE, HUNDRED_BETTING_MONEY)).isInstanceOf(Player.class);
     }
 
     @DisplayName("constructor: Name이 null이면 예외 발생")
@@ -45,7 +45,7 @@ class PlayerTest {
     @DisplayName("constructor: HandState가 null이면 예외 발생")
     @Test
     void constructor_HandStateIsNull_ExceptionThrown() {
-        assertThatThrownBy(() -> new Player(POBI, null, HUNDRED_BETTING_MONEY))
+        assertThatThrownBy(() -> new Player(WESTJUN, null, HUNDRED_BETTING_MONEY))
                 .isInstanceOf(NullPointerException.class)
                 .hasMessageContaining("handState가 null입니다");
     }
@@ -53,7 +53,7 @@ class PlayerTest {
     @DisplayName("constructor: BettingMoney가 null이면 예외 발생")
     @Test
     void constructor_BettingMoneyIsNull_ExceptionThrown() {
-        assertThatThrownBy(() -> new Player(JUN, HITTABLE_HAND_STATE, null))
+        assertThatThrownBy(() -> new Player(EASTJUN, HITTABLE_HAND_STATE, null))
                 .isInstanceOf(NullPointerException.class)
                 .hasMessageContaining("bettingMoney가 null입니다");
     }
@@ -99,6 +99,6 @@ class PlayerTest {
     @DisplayName("getName: 이름을 반환")
     @Test
     void getName() {
-        assertThat(player.getName()).isEqualTo(JUN);
+        assertThat(player.getName()).isEqualTo(EASTJUN);
     }
 }

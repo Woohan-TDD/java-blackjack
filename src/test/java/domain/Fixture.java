@@ -22,8 +22,10 @@ import domain.participant.hand.HandStateFactory;
 public class Fixture {
     public static final List<Card> CARDS = Card.values();
 
-    public static final Name POBI = new Name("Pobi");
-    public static final Name JUN = new Name("Jun");
+    public static final Name SOUTHJUN = new Name("southjun");
+    public static final Name NORTHJUN = new Name("northjun");
+    public static final Name WESTJUN = new Name("westjun");
+    public static final Name EASTJUN = new Name("eastjun");
 
     public static final BettingMoney THOUSAND_BETTING_MONEY = new BettingMoney(1_000);
     public static final BettingMoney HUNDRED_BETTING_MONEY = new BettingMoney(1_000_000);
@@ -47,10 +49,12 @@ public class Fixture {
     public static final List<Card> DEALER_HITTABLE_UPPER_BOUND_CARDS = Arrays.asList(TEN_SCORE, SIX_SCORE);
     public static final List<Card> DEALER_NOT_HITTABLE_LOWER_BOUND_CARDS = Arrays.asList(TEN_SCORE, SEVEN_SCORE);
 
-    public static final Hand HITTABLE_HAND = createHand(DEALER_HITTABLE_UPPER_BOUND_CARDS);
+    public static final Hand HITTABLE_LOW_HAND = createHand(DEALER_HITTABLE_LOWER_BOUND_CARDS);
+    public static final Hand HITTABLE_HIGH_HAND = createHand(DEALER_HITTABLE_UPPER_BOUND_CARDS);
     public static final Hand BLACKJACK_HAND = createHand(BLACKJACK_CARDS);
+    public static final Hand BUSTED_HAND = createHand(BUSTED_CARDS);
 
-    public static final HandState HITTABLE_HAND_STATE = HandStateFactory.createFromInitialHand(HITTABLE_HAND);
+    public static final HandState HITTABLE_HAND_STATE = HandStateFactory.createFromInitialHand(HITTABLE_HIGH_HAND);
     public static final HandState BLACKJACK_HAND_STATE = HandStateFactory.createFromInitialHand(BLACKJACK_HAND);
 
     public static Hand createHand(List<Card> cards) {

@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import domain.Name;
 import domain.card.Card;
+import domain.participant.hand.FinishedState;
 import domain.participant.hand.HandState;
 
 public abstract class Participant {
@@ -25,6 +26,30 @@ public abstract class Participant {
 
     public boolean isFinished() {
         return hand.isFinished();
+    }
+
+    public boolean isBusted() {
+        if (!isFinished()) {
+            return false;
+        }
+        FinishedState state = (FinishedState)hand;
+        return state.isBusted();
+    }
+
+    public boolean isBlackjack() {
+        if (!isFinished()) {
+            return false;
+        }
+        FinishedState state = (FinishedState)hand;
+        return state.isBlackjack();
+    }
+
+    public int compareScore(final Participant that) {
+        return Integer.compare(calculateScore(), that.calculateScore());
+    }
+
+    private int calculateScore() {
+        return hand.calculateScore();
     }
 
     public Name getName() {

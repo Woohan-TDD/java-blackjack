@@ -10,6 +10,11 @@ public class BustedState extends FinishedState {
     }
 
     @Override
+    public boolean isBusted() {
+        return true;
+    }
+
+    @Override
     protected BigDecimal getProfitRate() {
         return PROFIT_RATE;
     }
