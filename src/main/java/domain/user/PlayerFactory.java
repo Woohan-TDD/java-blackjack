@@ -6,17 +6,17 @@ import java.util.Map;
 
 public class PlayerFactory {
 
-    public static Players createPlayers(Map<String, Integer> inputs) {
+    public static Players createPlayers(final Map<Name, Integer> inputs) {
         validate(inputs);
         List<Player> players = new ArrayList<>();
-        for (Map.Entry<String, Integer> input : inputs.entrySet()) {
+        for (Map.Entry<Name, Integer> input : inputs.entrySet()) {
             players.add(new Player(
-                    new Name(input.getKey()), new BettingMoney(input.getValue())));
+                    input.getKey(), new BettingMoney(input.getValue())));
         }
         return new Players(players);
     }
 
-    private static void validate(Map<String, Integer> inputs) {
+    private static void validate(final Map<Name, Integer> inputs) {
         if (inputs == null || inputs.isEmpty()) {
             throw new IllegalArgumentException("null / empty 값입니다.");
         }
