@@ -1,6 +1,7 @@
 package domain.participant.hand;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import domain.card.Card;
@@ -69,6 +70,6 @@ public class Hand {
     }
 
     public List<Card> getCards() {
-        return cards;
+        return Collections.unmodifiableList(cards);
     }
 }
