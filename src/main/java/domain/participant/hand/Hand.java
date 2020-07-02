@@ -60,11 +60,11 @@ public class Hand {
         return score <= ACE_UPGRADABLE_SCORE_UPPER_BOUND;
     }
 
-    public List<Card> getCards() {
-        return cards;
-    }
-
     public boolean isInitialDraw() {
         return cards.size() == INITIAL_CARD_SIZE;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 }
