@@ -27,6 +27,12 @@ class BlackjackStateTest {
         assertThatThrownBy(() -> BLACKJACK_STATE.draw(TWO_SCORE)).isInstanceOf(UnsupportedOperationException.class);
     }
 
+    @DisplayName("isBusted: 버스트가 아님")
+    @Test
+    void isBusted() {
+        assertThat(BLACKJACK_STATE.isBusted()).isFalse();
+    }
+
     @DisplayName("isFinished: 끝났음을 반환")
     @Test
     void isFinished() {

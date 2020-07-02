@@ -1,10 +1,12 @@
 package domain.card;
 
+import static domain.Fixture.ACE_SCORE;
 import static domain.Fixture.CARDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +24,6 @@ class RandomCardDeckTest {
     @Test
     void constructor() {
         assertThat(new RandomCardDeck(Card.values())).isInstanceOf(RandomCardDeck.class);
-
     }
 
     @DisplayName("constructor: 카드 리스트가 null인 경우 예외 발생")
@@ -47,9 +48,14 @@ class RandomCardDeckTest {
         assertThat(cardDeck.pick()).isInstanceOf(Card.class);
     }
 
-    @DisplayName("pick: 카드를 입력받은 장수만큼 뽑음")
+    @DisplayName("pick: 카드 한 장을 뽑을 때 더 이상 카드가 없으면 예외 발생")
     @Test
-    void pick_MultipleCards() {
-        assertThat(cardDeck.pick(5)).hasSize(5);
+    void pick_DeckIsEmpty_ExceptionThrown() {
+        cardDeck = new RandomCardDeck(Collections.singletonList(ACE_SCORE));
+        cardDeck.pick();
+
+        assertThatThrownBy(() -> cardDeck.pick())
+                .isInstanceOf(EmptyCardDeckException.class)
+                .hasMessageContaining("카드를 모두 소모하여 더 뽑을 수 없습니다");
     }
 }

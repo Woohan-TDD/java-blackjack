@@ -10,6 +10,9 @@ public class HitState extends NotFinishedState {
     @Override
     public HandState draw(final Card card) {
         hand.draw(card);
+        if (hand.isMaxScore()) {
+            return new StayState(hand);
+        }
         if (hand.isBust()) {
             return new BustedState(hand);
         }

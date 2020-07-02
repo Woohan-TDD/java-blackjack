@@ -11,14 +11,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import domain.participant.hand.BustedState;
-import domain.participant.hand.HitState;
-import domain.participant.hand.StayState;
+import domain.card.CardDeck;
+import domain.card.FakeCardDeck;
 
 class PlayerTest {
     private Player player;
@@ -30,7 +30,13 @@ class PlayerTest {
 
     @DisplayName("constructor: 사용자 생성")
     @Test
-    void constructor() {
+    void constructor_TwoArguments() {
+        assertThat(new Player(EASTJUN, HUNDRED_BETTING_MONEY)).isInstanceOf(Player.class);
+    }
+
+    @DisplayName("constructor: 사용자 생성")
+    @Test
+    void constructor_ThreeArguments() {
         assertThat(new Player(EASTJUN, HITTABLE_HAND_STATE, HUNDRED_BETTING_MONEY)).isInstanceOf(Player.class);
     }
 
@@ -61,20 +67,26 @@ class PlayerTest {
     @DisplayName("hit: 카드를 한 장 뽑고 상태 전이")
     @Test
     void hit() {
-        player.hit(TWO_SCORE);
+        CardDeck cardDeck = new FakeCardDeck(Collections.singletonList(TWO_SCORE));
+        player.hit(cardDeck);
 
-        assertThat(player.getHandState()).isInstanceOf(HitState.class);
-        assertThat(player.isFinished()).isFalse();
+        assertAll(
+                () -> assertThat(player.isFinished()).isFalse(),
+                () -> assertThat(player.isBlackjack()).isFalse(),
+                () -> assertThat(player.isBusted()).isFalse()
+        );
     }
 
     @DisplayName("hit: 카드를 한 장 뽑고 버스트 상태로 전이")
     @Test
     void hit_Busted() {
-        player.hit(TEN_SCORE);
+        CardDeck cardDeck = new FakeCardDeck(Collections.singletonList(TEN_SCORE));
+        player.hit(cardDeck);
 
         assertAll(
-                () -> assertThat(player.getHandState()).isInstanceOf(BustedState.class),
-                () -> assertThat(player.isFinished()).isTrue()
+                () -> assertThat(player.isFinished()).isTrue(),
+                () -> assertThat(player.isBlackjack()).isFalse(),
+                () -> assertThat(player.isBusted()).isTrue()
         );
     }
 
@@ -84,12 +96,13 @@ class PlayerTest {
         player.stay();
 
         assertAll(
-                () -> assertThat(player.getHandState()).isInstanceOf(StayState.class),
-                () -> assertThat(player.isFinished()).isTrue()
+                () -> assertThat(player.isFinished()).isTrue(),
+                () -> assertThat(player.isBlackjack()).isFalse(),
+                () -> assertThat(player.isBusted()).isFalse()
         );
     }
 
-    @DisplayName("수익률 계산")
+    @DisplayName("calculateProfit: 수익률 계산")
     @Test
     void calculateProfit() {
         player.stay();
@@ -99,6 +112,6 @@ class PlayerTest {
     @DisplayName("getName: 이름을 반환")
     @Test
     void getName() {
-        assertThat(player.getName()).isEqualTo(EASTJUN);
+        assertThat(player.getName()).isEqualTo("eastjun");
     }
 }

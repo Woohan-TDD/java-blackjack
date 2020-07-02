@@ -45,6 +45,10 @@ public class Card {
         return suit;
     }
 
+    public String alias() {
+        return suit.alias() + face.alias();
+    }
+
     private static class CardCache {
         public static final List<Card> cache;
 

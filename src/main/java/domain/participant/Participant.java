@@ -3,7 +3,8 @@ package domain.participant;
 import java.util.Objects;
 
 import domain.Name;
-import domain.card.Card;
+import domain.card.CardDeck;
+import domain.participant.hand.Hand;
 import domain.participant.hand.HandState;
 import domain.participant.hand.ReadyState;
 
@@ -22,8 +23,14 @@ public abstract class Participant {
         this.hand = Objects.requireNonNull(hand, "handState가 null입니다.");
     }
 
-    public void hit(final Card card) {
-        hand = hand.draw(card);
+    public void hitAtFirst(final CardDeck cardDeck) {
+        for (int count = 0; count < INITIAL_DRAW_CARDS; count++) {
+            hit(cardDeck);
+        }
+    }
+
+    public void hit(final CardDeck cardDeck) {
+        hand = hand.draw(cardDeck.pick());
     }
 
     public void stay() {
@@ -50,11 +57,11 @@ public abstract class Participant {
         return hand.calculateScore();
     }
 
-    public Name getName() {
-        return name;
+    public String getName() {
+        return name.getName();
     }
 
-    public HandState getHandState() {
-        return hand;
+    public Hand getHand() {
+        return hand.getHand();
     }
 }

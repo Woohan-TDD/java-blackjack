@@ -1,11 +1,14 @@
 package domain.participant.hand;
 
+import static domain.Fixture.ACE_SCORE;
 import static domain.Fixture.BLACKJACK_CARDS;
 import static domain.Fixture.BUSTED_BY_ACE_CARDS;
 import static domain.Fixture.BUSTED_CARDS;
 import static domain.Fixture.DEALER_HITTABLE_UPPER_BOUND_CARDS;
 import static domain.Fixture.DEALER_NOT_HITTABLE_LOWER_BOUND_CARDS;
 import static domain.Fixture.MAX_SCORE_CARDS;
+import static domain.Fixture.THREE_SCORE;
+import static domain.Fixture.TWO_SCORE;
 import static domain.card.Face.ACE;
 import static domain.card.Suit.SPADE;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -104,5 +107,36 @@ class HandTest {
         }
 
         assertThat(hand.calculateScore()).isEqualTo(expect);
+    }
+
+    @DisplayName("isInitialDraw: 두 장의 카드를 가지고 있으면 true 반환")
+    @Test
+    void isInitialDraw_HasTwoCards_ReturnTrue() {
+        Hand hand = new Hand();
+
+        hand.draw(ACE_SCORE);
+        hand.draw(TWO_SCORE);
+
+        assertThat(hand.isInitialDraw()).isTrue();
+    }
+
+    @DisplayName("isInitialDraw: 두 장의 카드를 가지고 있으면 true 반환")
+    @Test
+    void isInitialDraw_NotHasTwoCards_ReturnFalse() {
+        Hand hand = new Hand();
+
+        hand.draw(ACE_SCORE);
+        hand.draw(TWO_SCORE);
+        hand.draw(THREE_SCORE);
+
+        assertThat(hand.isInitialDraw()).isFalse();
+    }
+
+    @DisplayName("getCards: 카드 리스트를 반환")
+    @Test
+    void getCards() {
+        Hand hand = new Hand();
+
+        assertThat(hand.getCards()).isNotNull();
     }
 }

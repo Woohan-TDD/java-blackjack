@@ -2,6 +2,7 @@ package domain.card;
 
 import static domain.card.Face.ACE;
 import static domain.card.Suit.CLUB;
+import static domain.card.Suit.HEART;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -64,5 +65,13 @@ class CardTest {
         Card card = Card.fromFaceAndSuit(ACE, CLUB);
 
         assertThat(card.getSuit()).isEqualTo(CLUB);
+    }
+
+    @DisplayName("alias: 출력용 텍스트 반환")
+    @Test
+    void alias() {
+        Card card = Card.fromFaceAndSuit(ACE, HEART);
+
+        assertThat(card.alias()).isEqualTo("❤️A");
     }
 }

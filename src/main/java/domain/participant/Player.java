@@ -10,6 +10,11 @@ import domain.participant.hand.HandState;
 public class Player extends Participant {
     private final BettingMoney bettingMoney;
 
+    public Player(final Name name, final BettingMoney bettingMoney) {
+        super(name);
+        this.bettingMoney = Objects.requireNonNull(bettingMoney, "bettingMoney가 null입니다.");
+    }
+
     public Player(final Name name, final HandState handState, final BettingMoney bettingMoney) {
         super(name, handState);
         this.bettingMoney = Objects.requireNonNull(bettingMoney, "bettingMoney가 null입니다.");

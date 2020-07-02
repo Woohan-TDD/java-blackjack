@@ -7,7 +7,7 @@ import domain.card.Card;
 
 public class Hand {
     private static final int INITIAL_CARD_SIZE = 2;
-    private static final int BLACKJACK_SCORE = 21;
+    private static final int MAX_SCORE = 21;
     private static final int ACE_UPGRADABLE_SCORE_UPPER_BOUND = 11;
     private static final int ACE_UPGRADE_SCORE = 10;
 
@@ -22,11 +22,15 @@ public class Hand {
     }
 
     public boolean isBlackjack() {
-        return cards.size() == INITIAL_CARD_SIZE && calculateScore() == BLACKJACK_SCORE;
+        return isInitialDraw() && isMaxScore();
+    }
+
+    public boolean isMaxScore() {
+        return calculateScore() == MAX_SCORE;
     }
 
     public boolean isBust() {
-        return calculateScore() > BLACKJACK_SCORE;
+        return calculateScore() > MAX_SCORE;
     }
 
     public int calculateScore() {
