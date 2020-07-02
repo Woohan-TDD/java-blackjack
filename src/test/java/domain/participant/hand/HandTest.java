@@ -64,7 +64,7 @@ class HandTest {
         Card card = Card.fromFaceAndSuit(ACE, SPADE);
 
         hand.draw(card);
-        assertThat(hand.getCards()).hasSize(1);
+        assertThat(hand.size()).isEqualTo(1);
     }
 
     @DisplayName("isBlackjack: 카드가 블랙잭인지 여부를 판단")

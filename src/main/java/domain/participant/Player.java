@@ -18,4 +18,8 @@ public class Player extends Participant {
     public BigDecimal calculateProfit() {
         return hand.calculateProfit(bettingMoney.getAmount());
     }
+
+    public BigDecimal getBettingMoney() {
+        return bettingMoney.getAmount();
+    }
 }

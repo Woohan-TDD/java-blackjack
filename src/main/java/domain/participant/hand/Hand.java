@@ -6,7 +6,7 @@ import java.util.List;
 import domain.card.Card;
 
 public class Hand {
-    private static final int BLACKJACK_CARD_SIZE = 2;
+    private static final int INITIAL_CARD_SIZE = 2;
     private static final int BLACKJACK_SCORE = 21;
     private static final int ACE_UPGRADABLE_SCORE_UPPER_BOUND = 11;
     private static final int ACE_UPGRADE_SCORE = 10;
@@ -22,7 +22,7 @@ public class Hand {
     }
 
     public boolean isBlackjack() {
-        return cards.size() == BLACKJACK_CARD_SIZE && calculateScore() == BLACKJACK_SCORE;
+        return cards.size() == INITIAL_CARD_SIZE && calculateScore() == BLACKJACK_SCORE;
     }
 
     public boolean isBust() {
@@ -32,6 +32,10 @@ public class Hand {
     public int calculateScore() {
         int score = calculateMaxScore();
         return upgradeIfHasAce(score);
+    }
+
+    public int size() {
+        return cards.size();
     }
 
     private int calculateMaxScore() {
@@ -58,5 +62,9 @@ public class Hand {
 
     public List<Card> getCards() {
         return cards;
+    }
+
+    public boolean isInitialDraw() {
+        return cards.size() == INITIAL_CARD_SIZE;
     }
 }

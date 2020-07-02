@@ -10,6 +10,11 @@ public class BustedState extends FinishedState {
     }
 
     @Override
+    public boolean isBlackjack() {
+        return false;
+    }
+
+    @Override
     public boolean isBusted() {
         return true;
     }

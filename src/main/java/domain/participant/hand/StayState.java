@@ -13,4 +13,14 @@ public class StayState extends FinishedState {
     protected BigDecimal getProfitRate() {
         return PROFIT_RATE;
     }
+
+    @Override
+    public boolean isBlackjack() {
+        return false;
+    }
+
+    @Override
+    public boolean isBusted() {
+        return false;
+    }
 }

@@ -4,12 +4,18 @@ import java.util.Objects;
 
 import domain.Name;
 import domain.card.Card;
-import domain.participant.hand.FinishedState;
 import domain.participant.hand.HandState;
+import domain.participant.hand.ReadyState;
 
 public abstract class Participant {
+    public static final int INITIAL_DRAW_CARDS = 2;
+
     private final Name name;
     HandState hand;
+
+    public Participant(final Name name) {
+        this(name, new ReadyState());
+    }
 
     public Participant(final Name name, final HandState hand) {
         this.name = Objects.requireNonNull(name, "name이 null입니다.");
@@ -29,19 +35,11 @@ public abstract class Participant {
     }
 
     public boolean isBusted() {
-        if (!isFinished()) {
-            return false;
-        }
-        FinishedState state = (FinishedState)hand;
-        return state.isBusted();
+        return hand.isBusted();
     }
 
     public boolean isBlackjack() {
-        if (!isFinished()) {
-            return false;
-        }
-        FinishedState state = (FinishedState)hand;
-        return state.isBlackjack();
+        return hand.isBlackjack();
     }
 
     public int compareScore(final Participant that) {

@@ -8,6 +8,11 @@ public abstract class StartedState implements HandState {
     }
 
     @Override
+    public boolean isOver(final int score) {
+        return calculateScore() > score;
+    }
+
+    @Override
     public int calculateScore() {
         return hand.calculateScore();
     }

@@ -3,6 +3,8 @@ package domain.participant.hand;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import domain.card.Card;
+
 public abstract class FinishedState extends StartedState {
     public FinishedState(final Hand hand) {
         super(hand);
@@ -19,12 +21,14 @@ public abstract class FinishedState extends StartedState {
         return true;
     }
 
-    public boolean isBlackjack() {
-        return false;
+    @Override
+    public HandState draw(final Card card) {
+        throw new UnsupportedOperationException("hit을 할 수 없는 상태입니다.");
     }
 
-    public boolean isBusted() {
-        return false;
+    @Override
+    public HandState stay() {
+        throw new UnsupportedOperationException("stay를 할 수 없는 상태입니다.");
     }
 
     protected abstract BigDecimal getProfitRate();

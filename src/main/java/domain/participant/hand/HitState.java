@@ -2,7 +2,7 @@ package domain.participant.hand;
 
 import domain.card.Card;
 
-public class HitState extends StartedState {
+public class HitState extends NotFinishedState {
     public HitState(final Hand hand) {
         super(hand);
     }
@@ -14,15 +14,5 @@ public class HitState extends StartedState {
             return new BustedState(hand);
         }
         return new HitState(hand);
-    }
-
-    @Override
-    public HandState stay() {
-        return new StayState(hand);
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 }

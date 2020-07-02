@@ -5,25 +5,21 @@ import java.math.BigDecimal;
 import domain.card.Card;
 
 public interface HandState {
-    default HandState draw(final Card card) {
-        throw new UnsupportedOperationException("hit을 할 수 없는 상태입니다.");
-    }
+    HandState draw(final Card card);
 
-    default HandState stay() {
-        throw new UnsupportedOperationException("stay를 할 수 없는 상태입니다.");
-    }
+    HandState stay();
 
     boolean isFinished();
 
-    default boolean isOver(final int score) {
-        return calculateScore() > score;
-    }
+    boolean isBlackjack();
+
+    boolean isBusted();
+
+    boolean isOver(final int score);
 
     int calculateScore();
 
-    default BigDecimal calculateProfit(final BigDecimal money) {
-        throw new UnsupportedOperationException("수익을 계산할 수 없는 상태입니다.");
-    }
+    BigDecimal calculateProfit(final BigDecimal money);
 
     Hand getHand();
 }

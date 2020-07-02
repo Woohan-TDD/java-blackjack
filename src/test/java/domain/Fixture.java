@@ -17,7 +17,7 @@ import java.util.List;
 import domain.card.Card;
 import domain.participant.hand.Hand;
 import domain.participant.hand.HandState;
-import domain.participant.hand.HandStateFactory;
+import domain.participant.hand.ReadyState;
 
 public class Fixture {
     public static final List<Card> CARDS = Card.values();
@@ -54,8 +54,8 @@ public class Fixture {
     public static final Hand BLACKJACK_HAND = createHand(BLACKJACK_CARDS);
     public static final Hand BUSTED_HAND = createHand(BUSTED_CARDS);
 
-    public static final HandState HITTABLE_HAND_STATE = HandStateFactory.createFromInitialHand(HITTABLE_HIGH_HAND);
-    public static final HandState BLACKJACK_HAND_STATE = HandStateFactory.createFromInitialHand(BLACKJACK_HAND);
+    public static final HandState HITTABLE_HAND_STATE = createHandState(DEALER_HITTABLE_UPPER_BOUND_CARDS);
+    public static final HandState BLACKJACK_HAND_STATE = createHandState(BLACKJACK_CARDS);
 
     public static Hand createHand(List<Card> cards) {
         Hand hand = new Hand();
@@ -66,6 +66,10 @@ public class Fixture {
     }
 
     public static HandState createHandState(List<Card> cards) {
-        return HandStateFactory.createFromInitialHand(createHand(cards));
+        HandState handState = new ReadyState();
+        for (final Card card : cards) {
+            handState = handState.draw(card);
+        }
+        return handState;
     }
 }
